@@ -50,7 +50,7 @@ public class QQrobot extends KQMSGAdapter{
 	
 	private KQWebClient k;
 	
-	public final String owner = "xxx",myself = "xxx"/*"3527683702"被封了*/,version = "2.5.0";//懒得获取qq号，反正就自己用
+	public final String owner = "xxx",myself = "xxx",version = "2.5.0";//懒得获取qq号，反正就自己用
 	
 	private String whyComeIn = "";
 	

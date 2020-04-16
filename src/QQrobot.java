@@ -50,7 +50,7 @@ public class QQrobot extends KQMSGAdapter{
 	
 	private KQWebClient k;
 	
-	public final String owner = "xx",myself = "xx",version = "2.5.0";//懒得获取qq号，反正就自己用
+	public final String owner = "xxx",myself = "xxx"/*"3527683702"被封了*/,version = "2.5.0";//懒得获取qq号，反正就自己用
 	
 	private String whyComeIn = "";
 	
@@ -112,7 +112,6 @@ public class QQrobot extends KQMSGAdapter{
 			,"不要ghs哦"
 			,"不要……不要进来啊"
 			,"不要会玩坏的"
-			,"为什么会变成这样呢……第一次有了喜欢的人。有了能做一辈子朋友的人。两件快乐事情重合在一起。而这两份快乐，又给我带来更多的快乐。得到的，本该是像梦境一般幸福的时间……但是，为什么，会变成这样呢……"
 			,"主人好棒"
 			,"亲亲宝贝"
 			,"亲爱的想我了吗"
@@ -228,6 +227,8 @@ public class QQrobot extends KQMSGAdapter{
 			"今天天气真好呀~",
 			"为什么会痛苦，一直微笑就好了",
 			"没有心，就不会受伤",
+			"为什么会变成这样呢……第一次有了喜欢的人。有了能做一辈子朋友的人。两件快乐事情重合在一起。而这两份快乐，又给我带来更多的快乐。得到的，本该是像梦境一般幸福的时间……但是，为什么，会变成这样呢……"
+			
 	};
 	
 	public final String list3[] = {
@@ -553,7 +554,7 @@ public class QQrobot extends KQMSGAdapter{
 		System.out.println(new Date().toLocaleString());
 		k.addQQMSGListenner(this);
 		managers.add(owner);
-		managers.add("xx");//内定管理
+		managers.add("xxx");//内定管理
 		root = Preferences.userRoot().node("QQrobot");
 		try {
 			root.removeNode();//清空数据,完全依赖data.xml
@@ -632,7 +633,7 @@ public class QQrobot extends KQMSGAdapter{
 			k.sendGroupMSG(qq, g, "嗯♂", false);
 			k.sendGroupMSG(qq, g, "宁要御姐还是萝莉", false);
 		}else {
-			k.sendGroupMSG(qq, g, "[CQ:image,file=xl"+(r.nextInt(2)+1)+".jpg", false);
+			k.sendGroupMSG(qq, g, "[CQ:image,file=xl"+(r.nextInt(2)+1)+".jpg]", false);
 		}
 		
 		whyComeIn = null;
@@ -794,6 +795,10 @@ public class QQrobot extends KQMSGAdapter{
 			contentOfLastReread.put(g, m);
 			hasReread.put(g, false);
 		}
+
+		if(msg.contains("[CQ,")&&(msg.contains("99")&&msg.contains("66"))){
+			return;
+		}
 		
 		if(!timeMap.getOrDefault(g, false)) {
 			
@@ -880,11 +885,11 @@ public class QQrobot extends KQMSGAdapter{
 					throw new Exception();//懒
 				}
 				
-				if(ms[1].equals("洪昱亮")) {
+				if(ms[1].equals("xxx")) {
 					k.sendGroupMSG(qq, g, "甭查了，肯定第一。", false);
 					return;
 				}
-				k.sendGroupMSG(qq, g, "最新一次考试成绩（上学期期末考）查询中，请稍等...", false);
+				k.sendGroupMSG(qq, g, "最新一次考试成绩（xxx）查询中，请稍等...", false);
 				
 				String res = "@#$";
 				for(int i=0;i<820;i++) {
@@ -946,10 +951,11 @@ public class QQrobot extends KQMSGAdapter{
 				if(!isManager) {
 //					k.sendGroupMSG(qq, g, " 抱歉，我还不是管理员，没法给您想要的自闭呢", true);
 					return;
-				}
-				switch(permission) {
-					case 1:k.setForbiddenWords(qq, g, "1200");break;
-					default:k.sendGroupMSG(qq, g, " 抱歉，以您尊贵的管理员身份我无法给您想要的自闭呢", true);
+				}else{
+					switch(permission) {
+						case 1:k.setForbiddenWords(qq, g, "1200");break;
+						default:k.sendGroupMSG(qq, g, " 抱歉，以您尊贵的管理员身份我无法给您想要的自闭呢", true);
+					}
 				}
 			}).start();
 			
@@ -971,26 +977,27 @@ public class QQrobot extends KQMSGAdapter{
 				if(!isManager) {
 //					k.sendGroupMSG(qq, g, " 抱歉，我还不是管理员，没法给您想要的套餐呢", true);
 					return;
-				}
-				if(permission == 1) {
-					try {
-						String ms[] = m.split(" ",2);
-						if(ms[1].equals("")||ms[0].equals("")) {
-							return;//懒
+				}else{
+					if(permission == 1) {
+						try {
+							String ms[] = m.split(" ",2);
+							if(ms[1].equals("")||ms[0].equals("")) {
+								return;//懒
+							}
+							int num = Integer.parseInt(ms[1]);//判断是否为数字
+							if(num>2505600) {
+								k.sendGroupMSG(qq, g, "这，已经是人家的极限了啦！！", true);
+								k.setForbiddenWords(qq, g, "2505600");
+								return;
+							}
+							k.setForbiddenWords(qq, g, ms[1]);
+						}catch(Exception e) {
+							k.setForbiddenWords(qq, g, "300");
+							k.sendGroupMSG(qq, g, "唔..听不懂你在说什么呢，不然给你5分钟好啦~顺便告诉你用法噢：领取套餐+<空格>+<时长>，60是一分钟噢，120两分钟，自己找规律叭！", true);
 						}
-						int num = Integer.parseInt(ms[1]);//判断是否为数字
-						if(num>2505600) {
-							k.sendGroupMSG(qq, g, "这，已经是人家的极限了啦！！", true);
-							k.setForbiddenWords(qq, g, "2505600");
-							return;
-						}
-						k.setForbiddenWords(qq, g, ms[1]);
-					}catch(Exception e) {
-						k.setForbiddenWords(qq, g, "300");
-						k.sendGroupMSG(qq, g, "唔..听不懂你在说什么呢，不然给你5分钟好啦~顺便告诉你用法噢：领取套餐+<空格>+<时长>，60是一分钟噢，120两分钟，自己找规律叭！", true);
+					}else {
+						k.sendGroupMSG(qq, g, " 抱歉，以您尊贵的管理员身份我无法给您想要的套餐呢", true);
 					}
-				}else {
-					k.sendGroupMSG(qq, g, " 抱歉，以您尊贵的管理员身份我无法给您想要的套餐呢", true);
 				}
 			}).start();
 			
@@ -1136,7 +1143,7 @@ public class QQrobot extends KQMSGAdapter{
 					+ "\\n语音转换 -打印百度tts转换后的语音链接；\\n自闭 -你试试就知道了（需要群管理员权限）；\\n领取套餐+<空格>+数字 -你试试就知道了（需要群管理员权限）；"
 					+ "\\n(详细)复读次数查询 -打印当天此群复读次数,若带有‘详细’则打印复读内容时间以及参与人员；"
 					+ "\\n-help -打印此列表\\n-version -查看当前机器人版本"
-					+ "\\n成绩查询 -仅限用于漳浦一中2022届最新考试成绩，当前数据为：高一上学期期末考"
+					+ "\\n成绩查询 -仅限用于xxxx最新考试成绩，当前数据为：xxx"
 					+ "\\n来点色图 -哎呀羞死人了！"
 					+ "\\n赞我 -给你名片点赞！"
 					+ "\\n\\n注意：复读期间不会处理命令噢，有关时间的算法以服务器时间为准\\n";//TODO 更新成绩
@@ -1306,7 +1313,7 @@ public class QQrobot extends KQMSGAdapter{
 					k.sendPrivateMSG(qq, "甭查了，肯定第一。");
 					return;
 				}
-				k.sendPrivateMSG(qq, "最新一次考试成绩（上学期期末考）查询中，请稍等...");//TODO 更新成绩
+				k.sendPrivateMSG(qq, "最新一次考试成绩（xxx）查询中，请稍等...");//TODO 更新成绩
 				
 				String res = "@#$";
 				for(int i=0;i<820;i++) {
